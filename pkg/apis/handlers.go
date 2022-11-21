@@ -163,7 +163,7 @@ func (d *DeviceAPI) HandleGetDevices(w http.ResponseWriter, r *http.Request) {
 		Subscriptions int    `json:"subscriptions"`
 	}
 
-	var deviceSlice []GetDevicesOutput
+	deviceSlice := make([]GetDevicesOutput, 0)
 
 	username := chi.URLParam(r, "username")
 	devices, err := d.Data.RetrieveDevices(username)
@@ -199,7 +199,6 @@ func (d *DeviceAPI) HandleGetDevices(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(400)
 		return
 	}
-
 	w.Write(devicesOutput)
 }
 
